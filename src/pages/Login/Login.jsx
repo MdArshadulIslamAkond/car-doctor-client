@@ -2,12 +2,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
+// import { useContext } from "react";
+// import { AuthContext } from "../../provider/AuthProvider";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+  // const { signInUser } = useContext(AuthContext);
+  const {signInUser} = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   // console.log(location);
@@ -23,16 +25,16 @@ const Login = () => {
         const loggedInUser = result.user;
         console.log("User logged in:", loggedInUser);
         const user = { email };
-
+        navigate(location?.state ? location?.state : "/");
         //get access token
-        axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.success) {
-              navigate(location?.state ? location?.state : "/");
-            }
-          });
+        // axios
+        //   .post("http://localhost:5000/jwt", user, { withCredentials: true })
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     if (res.data.success) {
+        //       navigate(location?.state ? location?.state : "/");
+        //     }
+        //   });
       })
       .catch((error) => console.error(error));
   };

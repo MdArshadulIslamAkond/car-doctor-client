@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../provider/AuthProvider";
+import useAxios from "../../hooks/useAxios";
 
 const Checkout = () => {
   const service = useLoaderData();
+  const axiosSecure = useAxios();
   const { title, _id, service_id, price, img } = service;
 //   console.log(service);
   const {user} = useContext(AuthContext);
@@ -30,15 +32,20 @@ const Checkout = () => {
         message: message,
     }
     console.log(booking);
-    fetch('http://localhost:5000/bookings', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(booking)
+    axiosSecure.post('/bookings', booking)
+    .then(res =>{
+      console.log(res.data);
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    .catch(err =>console.log(err));
+    // fetch('http://localhost:5000/bookings', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(booking)
+    // })
+    // .then(res => res.json())
+    // .then(data => console.log(data))
   };
   return (
     <div>

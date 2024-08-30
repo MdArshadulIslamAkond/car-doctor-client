@@ -6,6 +6,8 @@ import SignUp from "../pages/SignUp/SignUp";
 import Checkout from "../pages/Checkout/Checkout";
 import Bookings from "../pages/Bookings/Bookings";
 import PrivetRoutes from "./PrivetRoutes";
+import useAxios from "../hooks/useAxios";
+// const axiosSecure = useAxios();
 
 const routers = createBrowserRouter([
     {
@@ -17,6 +19,10 @@ const routers = createBrowserRouter([
             path: "/",
             element: <Home />,
             loader:()=> fetch('http://localhost:5000/services'),
+            // loader:()=> {
+            //     const axiosSecure = useAxios();
+            //    return axiosSecure.get('/services')
+            // },
         },
         {
             path: "login",
