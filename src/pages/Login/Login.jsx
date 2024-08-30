@@ -4,7 +4,7 @@ import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 // import { useContext } from "react";
 // import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
+// import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {

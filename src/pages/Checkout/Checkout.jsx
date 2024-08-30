@@ -5,9 +5,10 @@ import useAxios from "../../hooks/useAxios";
 
 const Checkout = () => {
   const service = useLoaderData();
+ 
   const axiosSecure = useAxios();
-  const { title, _id, service_id, price, img } = service;
-//   console.log(service);
+  const { title, _id, service_id, price, img } = service.data;
+
   const {user} = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();

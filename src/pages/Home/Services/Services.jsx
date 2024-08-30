@@ -5,7 +5,9 @@ import { useLoaderData } from "react-router";
 const Services = () => {
   // const [services, setServices] = useState();
   const [carService, setCarService] = useState([]);
-  const services = useLoaderData();
+  const data = useLoaderData();
+  const services = data.data;
+  // console.log(services);
 
 //   useEffect(() => {
 //     fetch("services.json")
