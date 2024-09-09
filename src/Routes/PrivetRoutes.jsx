@@ -10,7 +10,7 @@ const PrivetRoutes = ({children}) => {
         return <div>Loading...<span className="loading loading-spinner loading-md"></span></div>
     }
     if(user?.email){
-        console.log(user.email);
+        // console.log(user.email);
         return children;
     }
     return <Navigate state={location.pathname} to='/login' replace></Navigate>;

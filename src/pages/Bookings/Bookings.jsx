@@ -9,23 +9,13 @@ const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const axiosSecure = useAxios();
-  // const url = `http://localhost:5000/bookings?email=${user?.email}`;
   const url = `/bookings?email=${user?.email}`;
   useEffect(() => {
     axiosSecure.get(url)
     .then((res) =>{
         setBookings(res.data);
       });
-    // axios.get(url, {withCredentials: true})
-    // .then((res) =>{
-    //   setBookings(res.data);
-    // });
-    // fetch(url)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setBookings(data);
-    //   });
+   
   }, [url, axiosSecure]);
 
   const handleDelete = (id) => {
@@ -39,11 +29,10 @@ const Bookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axiosSecure.delete(`/bookings/${id}`)
+          .then((res) => {
+            const data = res.data;
+            // console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
@@ -55,20 +44,23 @@ const Bookings = () => {
               );
               setBookings(updatedBookings);
             }
-          });
+          })
+          .catch(err =>console.log(err));
       }
     });
   };
   const handleBookingConfirm = id =>{
-    fetch(`http://localhost:5000/bookings/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status: 'confirmed'}),
-    })
-     .then((res) => res.json())
-     .then((data) => {
+    // fetch(`http://localhost:5000/bookings/${id}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ status: 'confirmed'}),
+    // })
+    //  .then((res) => res.json())
+     axiosSecure.patch(`/bookings/${id}`, { status: 'confirmed'})
+     .then((res) => {
+      const data = res.data;
         if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Confirmed!",

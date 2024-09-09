@@ -19,9 +19,7 @@ const Navber = () => {
       color: isPending ? "gray" : isActive ? "red" : " black",
       backgroundColor: isPending ? "rgba(255, 255, 255, 0.1)" : "transparent",
       border: isPending ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
-      // if(isActive){
-      //   return setSearchParams({q:users.displayName});
-      // }
+   
     };
   };
   const navlinks = (

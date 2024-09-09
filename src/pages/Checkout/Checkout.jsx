@@ -32,21 +32,12 @@ const Checkout = () => {
         price: price,
         message: message,
     }
-    console.log(booking);
+    // console.log(booking);
     axiosSecure.post('/bookings', booking)
     .then(res =>{
       console.log(res.data);
     })
     .catch(err =>console.log(err));
-    // fetch('http://localhost:5000/bookings', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(booking)
-    // })
-    // .then(res => res.json())
-    // .then(data => console.log(data))
   };
   return (
     <div>

@@ -6,7 +6,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import Checkout from "../pages/Checkout/Checkout";
 import Bookings from "../pages/Bookings/Bookings";
 import PrivetRoutes from "./PrivetRoutes";
-import useAxios from "../hooks/useAxios";
+import useAxios, { axiosSecure } from "../hooks/useAxios";
 import axios from "axios";
 // const axiosSecure = useAxios();
 
@@ -19,8 +19,7 @@ const routers = createBrowserRouter([
         {
             path: "/",
             element: <Home />,
-            // loader:()=> fetch('http://localhost:5000/services'),
-            loader:()=> axios.get('https://cars-doctor-server-ivory.vercel.app/services'),
+            // loader:()=> axiosSecure('/services'),
            
         },
         {
@@ -34,8 +33,7 @@ const routers = createBrowserRouter([
         {
             path:'checkout/:id',
             element: <PrivetRoutes> <Checkout /></PrivetRoutes>,
-            // loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`),
-            loader: ({params}) => axios.get(`https://cars-doctor-server-ivory.vercel.app/services/${params.id}`),
+            loader: ({params}) => axiosSecure(`/services/${params.id}`),
         },
         {
             path: "bookings",

@@ -8,12 +8,15 @@ import {
   signOut,
 } from "firebase/auth";
 import axios from "axios";
+import { axiosSecure } from "../hooks/useAxios";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
+
   const [user, setUser] = useState(null);
   const [loadings, setLoadings] = useState(true);
+  
   const creatUser = (email, password) => {
     setLoadings(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -31,8 +34,8 @@ const AuthProvider = ({ children }) => {
       const loggedEmail = authUser?.email || user?.email;
       const loggedUser = { email: loggedEmail };
       if (authUser) {
-        axios
-          .post("http://localhost:5000/jwt", loggedUser, {
+        axiosSecure
+          .post("/jwt", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {
@@ -41,8 +44,8 @@ const AuthProvider = ({ children }) => {
           });
         setUser(authUser);
       } else {
-        axios
-          .post("http://localhost:5000/logout", loggedUser, {
+        axiosSecure
+          .post("/logout", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {
